@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Baratie </title>
+    <link rel="stylesheet" href="/css/styleshome.css">
+     <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+</head>
+<body>
+    <!-- Barra de Navegação -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <button class="navbar-button" onclick="alert('Menu')">Menu</button>
+            <button class="navbar-button" onclick="alert('Contato')">Contato</button>
+            <button class="navbar-button" onclick="alert('Reservar Mesa')">Reservar Mesa</button>
+            <button class="navbar-button" onclick="alert('Pedir')">Pedir</button>
+            <div class="user-info" onclick="showUserInfo()">
+                <span id="user-initial">K</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Nome do Restaurante -->
+    <header class="header">
+        <h1>Baratie</h1>
+    </header>
+
+    <!-- Informações de Contato -->
+    <section class="info-section">
+        <div class="info-card">
+            <h2>Horário de Funcionamento</h2>
+            <p>Segunda a Sexta: 10h - 22h</p>
+            <p>Sábado e Domingo: 11h - 23h</p>
+        </div>
+        <div class="info-card">
+            <h2>Telefone</h2>
+            <p>(11) 1234-5678</p>
+        </div>
+        <div class="info-card">
+            <h2>Email</h2>
+            <p>contato@baratie.com</p>
+        </div>
+    </section>
+
+    <!-- Seção de Delivery -->
+    <section class="delivery-section">
+        <h2>Delivery</h2>
+        <p>Compre pelo nosso delivery e receba no conforto da sua casa!</p>
+        <button onclick="alert('Pedir Delivery')">Pedir Delivery</button>
+    </section>
+
+    <!-- Críticas Gastronômicas -->
+    <section class="reviews-section">
+        <div class="review-card">
+            <p>"Ótima comida e atendimento excelente!"</p>
+        </div>
+        <div class="review-card">
+            <p>"Ambiente agradável e pratos deliciosos."</p>
+        </div>
+        <div class="review-card">
+            <p>"Recomendo para uma refeição especial."</p>
+        </div>
+    </section>
+
+    <!-- Sobre os Funcionários -->
+    <section class="staff-section">
+        <h2>Sobre os Funcionários</h2>
+        <p>Conheça nossa equipe dedicada que faz tudo acontecer!</p>
+        <button onclick="alert('Trabalhe Conosco')">Trabalhe Conosco</button>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <button onclick="scrollToSection('menu')">Menu</button>
+        <button onclick="scrollToSection('contato')">Contato</button>
+        <button onclick="scrollToSection('reservar')">Reservar Mesa</button>
+        <button onclick="scrollToSection('pedir')">Pedir</button>
+        <div class="signature">
+            <p>Assinatura Eletrônica:</p>
+            <input type="text" placeholder="Digite sua assinatura">
+        </div>
+    </footer>
+
+      <script>
+        // Função para mostrar informações do usuário
+        function showUserInfo() {
+            alert('Informações do Usuário: Nome, Conta em Aberto, Sair');
+        }
+
+        // Função para rolar para uma seção específica (exemplo)
+        function scrollToSection(sectionId) {
+            alert('Scroll para a seção: ' + sectionId);
+        }
+
+        // Função para esconder ou mostrar a barra de navegação ao rolar
+        let lastScrollTop = 0;
+        const navbar = document.querySelector('.navbar');
+        window.addEventListener('scroll', function() {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            if (scrollTop > lastScrollTop) {
+                // Rolando para baixo
+                navbar.style.top = "-60px"; // Ajuste conforme a altura da sua navbar
+            } else {
+                // Rolando para cima
+                navbar.style.top = "0";
+            }
+            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // Para não ficar negativo
+        });
+    </script>
+</body>
+</html>

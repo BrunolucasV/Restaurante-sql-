@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cadastro de Cliente</title>
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Cadastro de Cliente</h2>
+        <form id="cadastroForm">
+            <div class="form-group">
+                <label for="nome">Nome:</label>
+                <input type="text" class="form-control" id="nome" name="nome" required>
+                <div id="nomeError" class="error-message"></div>
+            </div>
+            <div class="form-group">
+                <label for="cpf">CPF:</label>
+                <input type="text" class="form-control" id="cpf" name="cpf" required>
+                <div id="cpfError" class="error-message"></div>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+                <div id="emailError" class="error-message"></div>
+            </div>
+            <div class="form-group">
+                <label for="senha">Senha:</label>
+                <input type="password" class="form-control" id="senha" name="senha" required>
+                <div id="senhaError" class="error-message"></div>
+            </div>
+            <div class="form-group">
+                <label for="telefone">Telefone:</label>
+                <input type="text" class="form-control" id="telefone" name="telefone">
+            </div>
+            <button type="submit" class="btn btn-primary">Cadastrar</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('cadastroForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const nome = document.getElementById('nome').value;
+            const cpf = document.getElementById('cpf').value;
+            const email = document.getElementById('email').value;
+            const senha = document.getElementById('senha').value;
+            const telefone = document.getElementById('telefone').value;
+
+            fetch('/cadastrar_cliente', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ nome, cpf, email, senha, telefone }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                   //alert('Cadastro realizado com sucesso!');
+                    window.location.href = '/'; // Redireciona para a página de login
+                } else {
+                    handleError(data.errors);
+                }
+            })
+            .catch(error => {
+                console.error('Erro:', error);
+            });
+        });
+
+        function handleError(errors) {
+            if (errors.nome) {
+                document.getElementById('nome').classList.add('error');
+                document.getElementById('nomeError').textContent = errors.nome;
+                document.getElementById('nomeError').style.display = 'block';
+            }
+            if (errors.cpf) {
+                document.getElementById('cpf').classList.add('error');
+                document.getElementById('cpfError').textContent = errors.cpf;
+                document.getElementById('cpfError').style.display = 'block';
+            }
+            if (errors.email) {
+                document.getElementById('email').classList.add('error');
+                document.getElementById('emailError').textContent = errors.email;
+                document.getElementById('emailError').style.display = 'block';
+            }
+            if (errors.senha) {
+                document.getElementById('senha').classList.add('error');
+                document.getElementById('senhaError').textContent = errors.senha;
+                document.getElementById('senhaError').style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>

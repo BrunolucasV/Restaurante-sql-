@@ -1,0 +1,60 @@
+<main>
+    {{! cardapio(apenas para o gerente)}}
+    <div class="container">
+        <div class="row">
+            <div class="col-6 offset-3">
+                <form id="cadastroForm" action="/cadastrar" method="post" enctype="multipart/form-data">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="tipo" id="comida" value="comida" required>
+                        <label class="form-check-label" for="comida">Comida</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="tipo" id="bebida" value="bebida" required>
+                        <label class="form-check-label" for="bebida">Bebida</label>
+                    </div>
+                    <input type="text" name="nome" class="form-control" placeholder="Nome da comida/bebida" required>
+                    <input type="number" name="valor" class="form-control" placeholder="Valor do produto" required>
+                    <input type="text" name="ingredientes" class="form-control" placeholder="Ingredientes" required>
+                    <input type="file" name="imagem" class="form-control" id="imagem" required>
+                    <input type="submit" class="btn btn-primary" id="submitBtn" value="Cadastrar">
+                    <div class="alert alert-warning mt-3">
+                        <strong>Atenção:</strong> Caso o nome da comida ou bebida esteja errado, será necessário deletá-la e cadastrá-la novamente. A alteração do nome não é possível após o cadastro inicial.
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {{! listagem do cardapio   }}
+   <div class="container">
+        <div class="row">
+            {{#each comidas}}
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                    <div class="card">
+                        <img src="./imagens/{{imagem}}">
+                        <div class="textos">
+                            <p>{{nome_comida}}</p>
+                            <p>R${{valor_comida}}</p>
+                            <p>{{ingredientes}}</p>
+                        </div>
+                        <a href="/GerenteEditar/comida/{{encodeURIComponent nome_comida}}" class="btn btn-warning">Alterar</a>
+                        <a href="/remover/comida/{{nome_comida}}/{{imagem}}" class="btn btn-danger">Remover</a>
+                    </div>
+                </div>
+            {{/each}}
+            {{#each bebidas}}
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                    <div class="card">
+                        <img src="./imagens/{{imagem}}">
+                        <div class="textos">
+                            <p>{{nome_bebida}}</p>
+                            <p>R${{valor_bebida}}</p>
+                            <p>{{ingredientes}}</p>
+                        </div>
+                        <a href="/GerenteEditar/bebida/{{encodeURIComponent nome_bebida}}" class="btn btn-warning">Alterar</a>
+                        <a href="/remover/bebida/{{nome_bebida}}/{{imagem}}" class="btn btn-danger">Remover</a>
+                    </div>
+                </div>
+            {{/each}}
+        </div>
+    </div>
+</main>

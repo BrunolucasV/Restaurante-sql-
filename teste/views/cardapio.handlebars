@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cardápio</title>
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/stylescardapio.css">
+</head>
+<body>
+    <main>
+        <div class="container mt-5">
+            <!-- Seção de Comidas -->
+            <h2>Comidas</h2>
+            <div class="row">
+                {{#each comidas}}
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
+                    <div class="card cardapio">
+                        <img src="./imagens/{{imagem}}" class="cardapio_foto" alt="{{nome_comida}}">
+                        <div class="card-body">
+                            <h5 class="cardapio_nome">{{nome_comida}}</h5>
+                            <p class="cardapio_valor">R${{valor_comida}}</p>
+                            <button class="btn btn-sm btn-primary mostrar_ingredientes">Ingredientes</button>
+                            <p class="cardapio_ingredientes">{{ingredientes}}</p>
+                            <div class="cardapio_quantidade">
+                                <input type="number" class="quantidade" min="0" value="0">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+
+            <!-- Seção de Bebidas -->
+            <h2>Bebidas</h2>
+            <div class="row">
+                {{#each bebidas}}
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
+                    <div class="card cardapio">
+                        <img src="./imagens/{{imagem}}" class="cardapio_foto" alt="{{nome_bebida}}">
+                        <div class="card-body">
+                            <h5 class="cardapio_nome">{{nome_bebida}}</h5>
+                            <p class="cardapio_valor">R${{valor_bebida}}</p>
+                            <button class="btn btn-sm btn-primary mostrar_ingredientes">Ingredientes</button>
+                            <p class="cardapio_ingredientes">{{ingredientes}}</p>
+                            <div class="cardapio_quantidade">
+                                <input type="number" class="quantidade" min="0" value="0">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+
+        <!-- Botão de Fazer Pedido -->
+        <div class="button-container">
+            <div class="order-button visible" onclick="fazerPedido()">Fazer Pedido</div>
+            <div class="loading-bar"></div>
+            <button class="back-button" onclick="goBack()">Voltar</button>
+        </div>
+    </main>
+
+    <script>
+        document.querySelectorAll('.mostrar_ingredientes').forEach(button => {
+            button.addEventListener('click', function() {
+                const ingredientes = this.nextElementSibling;
+                if (ingredientes.style.display === 'none' || ingredientes.style.display === '') {
+                    ingredientes.style.display = 'block';
+                    this.textContent = 'Ocultar';
+                } else {
+                    ingredientes.style.display = 'none';
+                    this.textContent = 'Ingredientes';
+                }
+            });
+        });
+
+        // Inicialmente, esconder todos os ingredientes
+        document.querySelectorAll('.cardapio_ingredientes').forEach(el => el.style.display = 'none');
+
+        // Função para fazer pedido
+        function fazerPedido() {
+            let pedido = [];
+            let numeroMesa = 2; // Número fixo da mesa
+            let statusPedido = "preparando";
+            let idCardapio = 1; // ID fixo do cardápio
+
+            document.querySelectorAll('.cardapio').forEach(card => {
+                const quantidade = parseInt(card.querySelector('.quantidade').value);
+                if (quantidade > 0) {
+                    const nomeItem = card.querySelector('.cardapio_nome').textContent;
+                    const valorItem = parseFloat(card.querySelector('.cardapio_valor').textContent.replace('R$', ''));
+                    const valorTotalItem = quantidade * valorItem;
+                    
+                    pedido.push({
+                        quantidade: quantidade,
+                        numero_mesa: numeroMesa,
+                        valor_pedido: valorTotalItem,
+                        status_pedido: statusPedido,
+                        id_cardapio: idCardapio,
+                        quantidade_cardapio: quantidade,
+                        nome_pedido: nomeItem // Inclui o nome do pedido
+                    });
+                }
+            });
+
+            if (pedido.length === 0) {
+                alert('Selecione pelo menos um item para fazer o pedido.');
+                return;
+            }
+
+            // Inicia a animação de carregamento
+            startLoading(document.querySelector('.order-button'));
+
+            fetch('/fazer-pedido', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(pedido),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    console.log('Pedido realizado com sucesso:', data);
+                } else {
+                    console.error('Erro ao realizar o pedido:', data.error);
+                }
+            })
+            .catch((error) => {
+                console.error('Erro ao realizar o pedido:', error);
+            });
+        }
+
+        // Função para animar o botão
+        function startLoading(button) {
+            var container = button.parentElement;
+            var loadingBar = container.querySelector('.loading-bar');
+
+            // Mudar o texto do botão para "Enviando"
+            button.innerText = "Enviando";
+            // Desativar o botão
+            button.classList.add('disabled');
+
+            // Iniciar a animação de carregamento
+            container.classList.add('loading');
+
+            // Após 2 segundos, mudar o texto do botão para "Pedido Enviado"
+            setTimeout(function() {
+                button.innerText = "Pedido Enviado";
+                container.classList.remove('loading');
+                button.classList.remove('disabled');
+                button.classList.remove('visible');
+
+                // Mostrar o botão "Voltar para a Página Inicial"
+                var backButton = document.querySelector('.back-button');
+                backButton.classList.add('visible');
+                backButton.style.width = button.style.width; // Ajusta a largura para a mesma do botão original
+                backButton.style.height = button.style.height; // Ajusta a altura para a mesma do botão original
+            }, 2000);
+        }
+
+        function goBack() {
+            alert('Deu');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pedido</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="res_nome">Nome do Restaurante</div>
+        <div class="header">
+            <div class="status">
+                <div>Pedido: 12345</div>
+                <div>Status: Em andamento</div>
+            </div>
+            <div class="icon">K</div>
+        </div>
+
+        <div class="pedido-container">
+            <div class="pedido">Pedido 1: Detalhes do pedido...</div>
+            <div class="pedido">Pedido 2: Detalhes do pedido...</div>
+            <div class="pedido">Pedido 3: Detalhes do pedido...</div>
+            <div class="pedido">Pedido 4: Detalhes do pedido...</div>
+            <!-- Adicione mais pedidos conforme necessário -->
+        </div>
+    </div>
+
+    <div class="footer">
+        <!-- Botão "Pedir" redireciona para pedir.html -->
+        <button onclick="window.location.href='pedir.html'">Pedir</button>
+        <button onclick="alert('Visualizar conta!')">Conta</button>
+    </div>
+
+    <div class="valor">
+        Valor: R$ <span id="valor"></span>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

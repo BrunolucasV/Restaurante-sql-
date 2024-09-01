@@ -1,0 +1,179 @@
+form{
+    margin-top: 30px;
+    text-align: center;
+}
+
+form input{
+    margin-bottom: 30px;
+}
+
+form input[type="submit"]{
+    margin-top: 10px;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f8ff;
+    margin: 0;
+    padding: 20px;
+    color: #333;
+    box-sizing: border-box;
+}
+
+
+
+.container {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #d3d3d3; /* Cinza Claro */
+    padding-bottom: 10px;
+    flex-wrap: wrap;
+}
+
+.header .status {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.icon {
+    background-color: #1e90ff; /* Azul Dodger */
+    color: white;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    font-size: 24px;
+    font-weight: bold;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+}
+
+.res_nome {
+    font-size: 32px;
+    font-weight: bold;
+    color: #1e90ff; /* Azul Dodger */
+    text-align: center;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #f8f8f8; /* Branco Fantasma */
+    border-top: 2px solid #d3d3d3; /* Cinza Claro */
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 10px 0;
+    z-index: 1000;
+}
+
+.footer button {
+    background-color: #4682b4; /* Azul Aço */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.footer button:hover {
+    background-color: #5a9bd5; /* Azul Mais Claro */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.valor {
+    position: fixed;
+    bottom: 60px; /* Espaço acima dos botões */
+    right: 20px;
+    background-color: #e0ffff; /* Ciano Claro */
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 18px;
+    color: #333;
+    z-index: 1000;
+}
+
+.pedido-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.pedido {
+    flex: 1 1 calc(50% - 20px); /* Duas colunas com espaçamento */
+    background-color: #e6f7ff; /* Azul muito claro */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 600px) {
+    .pedido {
+        flex: 1 1 100%; /* Coluna única em telas pequenas */
+    }
+
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .header .status {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .icon {
+        position: static;
+        margin-top: 10px;
+    }
+
+    .valor {
+        position: static;
+        margin-top: 20px;
+        width: 100%;
+        text-align: center;
+        
+    }   }
+
+    /* Estilos para os itens e outros elementos */
+    
+    .card{	
+        margin-top: 40px;     
+        padding: 5px;
+    }
+
+    .textos{
+       text-align: center;
+        margin-top: 30px;
+
+    }
+
+    .card a{
+        margin-top: 5px;
+    }
+
+    .error {
+        border-color: red;
+    }
+    .error-message {
+        color: red;
+        display: none;
+        margin-top: 10px;
+    }

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar {{tipo}}</title>
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/styles.css"> <!-- Adiciona seu próprio CSS se necessário -->
+</head>
+<body>
+    <div class="container">
+        <h1>Editar {{tipo}}</h1>
+        <form action="/editar" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="tipo" value="{{tipo}}">
+            <input type="hidden" name="nome_original" value="{{nome}}">
+            <div class="mb-3">
+                <label for="nome" class="form-label">Nome</label>
+                <input type="text" class="form-control" id="nome" name="nome" value="{{nome}}" required>
+            </div>
+            <div class="mb-3">
+                <label for="valor" class="form-label">Valor</label>
+                <input type="number" class="form-control" id="valor" name="valor" value="{{valor}}" required>
+            </div>
+            <div class="mb-3">
+                <label for="ingredientes" class="form-label">Ingredientes</label>
+                <input type="text" class="form-control" id="ingredientes" name="ingredientes" value="{{ingredientes}}" required>
+            </div>
+            <div class="mb-3">
+                <label for="imagem" class="form-label">Imagem</label>
+                <input type="file" class="form-control" id="imagem" name="imagem">
+                <img src="/imagens/{{imagem}}" alt="Imagem atual" class="img-thumbnail mt-2" width="150">
+            </div>
+            <button type="submit" class="btn btn-primary">Salvar</button>
+        </form>
+    </div>
+    <script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
